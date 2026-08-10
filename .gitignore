@@ -2,6 +2,7 @@
 .gradle/
 .idea/
 .firecrawl/
+dist/
 local.properties
 /build/
 **/build/
