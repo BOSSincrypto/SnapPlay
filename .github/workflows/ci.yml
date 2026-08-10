@@ -23,7 +23,9 @@ jobs:
           java-version: "17"
       - uses: gradle/actions/setup-gradle@v6
       - name: Test and build
-        run: ./gradlew test lint assembleDebug --stacktrace
+        run: |
+          chmod +x gradlew
+          ./gradlew test lint assembleDebug --stacktrace
       - uses: actions/upload-artifact@v7
         with:
           name: snapplay-debug-${{ github.sha }}

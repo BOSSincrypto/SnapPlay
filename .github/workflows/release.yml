@@ -38,7 +38,9 @@ jobs:
           SNAPPLAY_STORE_PASSWORD: ${{ secrets.SNAPPLAY_STORE_PASSWORD }}
           SNAPPLAY_KEY_ALIAS: ${{ secrets.SNAPPLAY_KEY_ALIAS }}
           SNAPPLAY_KEY_PASSWORD: ${{ secrets.SNAPPLAY_KEY_PASSWORD }}
-        run: ./gradlew test lint assembleRelease bundleRelease --stacktrace
+        run: |
+          chmod +x gradlew
+          ./gradlew test lint assembleRelease bundleRelease --stacktrace
       - name: Verify APK signature
         run: "$ANDROID_HOME/build-tools/36.0.0/apksigner verify --verbose app/build/outputs/apk/release/app-release.apk"
       - name: Publish GitHub release
