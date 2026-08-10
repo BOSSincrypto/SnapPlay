@@ -105,9 +105,8 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            val speed by settingsDataStore.data
-                .map { it[PlaybackSpeedKey] ?: 1f }
-                .collectAsStateWithLifecycle(initialValue = 1f)
+            val speedFlow = remember { settingsDataStore.data.map { it[PlaybackSpeedKey] ?: 1f } }
+            val speed by speedFlow.collectAsStateWithLifecycle(initialValue = 1f)
 
             LaunchedEffect(speed) { player.setPlaybackSpeed(speed) }
             SnapPlayScreen(speed)
