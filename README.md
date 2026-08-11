@@ -32,20 +32,9 @@ Debug APK появится в `app/build/outputs/apk/debug/`.
 
 Pull request и push в `main` запускают тесты, lint и debug-сборку. APK сохраняется как GitHub Actions artifact на 14 дней.
 
-Тег формата `vX.Y.Z` запускает подписанную APK/AAB-сборку и создаёт GitHub Release. Перед первым тегом создайте GitHub Environment `production` и secrets:
+Тег формата `vX.Y.Z` запускает тесты, lint и создаёт GitHub Release с устанавливаемым debug APK. Workflow не использует signing secrets.
 
-- `SNAPPLAY_KEYSTORE_BASE64` — upload-keystore в Base64 без переносов;
-- `SNAPPLAY_STORE_PASSWORD`;
-- `SNAPPLAY_KEY_ALIAS`;
-- `SNAPPLAY_KEY_PASSWORD`.
-
-Пример кодирования keystore:
-
-```bash
-base64 -w 0 snapplay-upload.jks
-```
-
-Защитите теги `v*` и environment `production`. Для Google Play включите Play App Signing; в GitHub храните только upload key.
+Debug-подпись подходит для прямой установки APK из GitHub, но не для Google Play. Для публикации в Play Store потребуется отдельный upload key, Play App Signing и подписанный AAB.
 
 ## Стек на 10 августа 2026
 
