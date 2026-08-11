@@ -52,4 +52,8 @@ jobs:
           TAG: ${{ steps.tag.outputs.tag }}
         run: |
           cp app/build/outputs/apk/debug/app-debug.apk "SnapPlay-$TAG.apk"
-          gh release create "$TAG" "SnapPlay-$TAG.apk" --verify-tag --generate-notes --title "SnapPlay $TAG"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "SnapPlay-$TAG.apk" --clobber
+          else
+            gh release create "$TAG" "SnapPlay-$TAG.apk" --verify-tag --generate-notes --title "SnapPlay $TAG"
+          fi
